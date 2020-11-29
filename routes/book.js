@@ -18,7 +18,7 @@ router.get('/add/details/:vehicle',(req, res)=> {
         date:date,
         time:time,
         vehicle:id,
-        title:''
+        title:'Fill Details'
     });
 });
 
@@ -106,7 +106,7 @@ router.get('/update/:vehicle/details', function (req, res) {
                 date:date,
                 time:time,
                 vehicle:id,
-                title:''
+                title:'Fill Details'
             });
             break;
         }
