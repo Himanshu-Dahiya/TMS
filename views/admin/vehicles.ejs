@@ -1,0 +1,40 @@
+<%- include('../_layouts/adminheader') %>
+
+<h2 class="page-title">Vehicles</h2>
+<a href="/admin/vehicles/add-vehicle" class="btn btn-primary">Add a new vehicle</a>
+<br><br>
+
+<% if (count > 0) { %>
+<table class="table table-striped">
+    <thead>
+        <tr class="home">
+            <th>Vehicle</th>
+            <th>Category</th>
+            <th>Vehicle Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% vehicles.forEach(function(vehicle){ %>
+        <tr>
+            <td><%= vehicle.title %></td>
+            <td><%= vehicle.category %></td>
+            <td>
+                <% if (vehicle.image == "") { %>
+                <img id="noimage" src="/images/noimage.png">
+                <% } else {%>
+                <img id="noimage" src="<%= vehicle.image %>">
+                <% }%>
+            </td>
+            <td><a href="/admin/vehicles/edit-vehicle/<%= vehicle._id %>">Edit</a></td>
+            <td><a href="/admin/vehicles/delete-vehicle/<%= vehicle._id %>">Delete</a></td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
+<% } else {%>
+<h3 class="text-center">There are no vehicles.</h3>
+<% }%>
+
+<%- include('../_layouts/adminfooter') %>

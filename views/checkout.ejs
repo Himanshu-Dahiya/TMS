@@ -1,0 +1,74 @@
+<%- include('./_layouts/header.ejs') %>
+
+<% if (user && user.bookings.length>0) { %>
+<h1 class="page-title">My bookings</h1>
+<br><br>
+<table class="table table-striped alignmiddle">
+    
+    <tr>
+        <th>Image</th>
+        <th>Vehicle</th>
+        <th>Starting Location</th>
+        <th>Destination</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Quantity</th>
+        <th></th>
+    </tr>
+    
+    <% var total = 0; %>
+    <% user.bookings.forEach(function(vehicle){ %>
+    <tr>
+        <td><img class="pimage" src="<%= vehicle.image %>" alt=""></td>
+        <td><%= vehicle.title %></td>
+        <td><%= vehicle.origin %></td>
+        <td><%= vehicle.destination %></td>
+        <td><%= vehicle.date %></td>
+        <td><%= vehicle.time %></td>
+        <td><%= vehicle.qty %></td>
+        <td>
+            <a href="/book/update/<%= vehicle.title %>?action=add">+</a>&nbsp;
+            <a href="/book/update/<%= vehicle.title %>?action=remove">-</a>&nbsp;
+            <a href="/book/update/<%= vehicle.title %>/details">Edit</a>&nbsp;
+        </td>
+    </tr>
+    <% }); %>
+    <tr>
+        <td colspan="6" align="right"><b></b></td>
+    </tr>
+    <tr>
+        <td colspan="5" align="right">
+            <a class="clearuser.bookings btn btn-danger" href="/book/clear">Clear Bookings</a>
+        </td>
+    </tr>
+    
+</table>
+
+
+<form class="pp" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_user.bookings">
+<input type="hidden" name="upload" value="1">
+<input type="hidden" name="business" value="jultranet-facilitator@gmail.com">
+<% var num = 0; %>
+<% user.bookings.forEach(function(p){ %>
+    <% num++ %>
+    <input type="hidden" name="item_name_<%= num %>" value="<%= p.title %>">
+    <input type="hidden" name="amount_<%= num %>" value="<%= p.price %>">
+    <input type="hidden" name="quantity_<%= num %>" value="<%= p.qty %>">
+<% }); %>
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="amount" value="<%= total %>">
+</form>
+
+
+<% } else {%>
+<h3 class="text-center">Your bookings is empty.</h3>
+<% } %>
+
+<script>
+
+
+    
+</script>
+
+<%- include('./_layouts/footer.ejs') %>
