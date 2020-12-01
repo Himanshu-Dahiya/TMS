@@ -23,20 +23,32 @@ router.get('/add/details/:vehicle',(req, res)=> {
 });
 
 router.post('/add/:vehicle',(req, res)=> {
-    req.checkBody('origin','Origin must have a value').notEmpty();
-    req.checkBody('destination','Destination must have a value').notEmpty();
-    req.checkBody('date','Date must have a numerical value').isDecimal();
-    req.checkBody('time','Time must have a numerical value').isDecimal();
-
     var title=req.params.vehicle;
     var slug = title.replace(/\s+/g, '-').toLowerCase();
     var origin =req.body.origin;
     var destination = req.body.destination;
     var date = req.body.date;
     var time = req.body.time;
-    var status = 'Pending'
+    var status = 'Pending';
+
+    req.checkBody('origin','Origin must have a value').notEmpty();
+    req.checkBody('destination','Destination must have a value').notEmpty();
+    req.checkBody('date','Date must have a numerical value').isDecimal();
+    req.checkBody('time','Time must have a numerical value').isDecimal();
 
     var errors = req.validationErrors();
+    if (errors) {
+        res.render('details', {
+            errors: errors,
+            user:null,
+            title: 'Error',
+            vehicle:title,
+            origin:origin,
+            destination:destination,
+            date:date,
+            time:time
+        });
+    } else {
     Vehicle.findOne({slug: slug}).then(p=>{
         if (req.user.bookings.length===0) {
          //   req.user.bookings = [];
@@ -82,7 +94,7 @@ router.post('/add/:vehicle',(req, res)=> {
         res.redirect('/book/checkout');
     })
     .catch(err=>console.log(err));
-
+    }
 });
 
 router.get('/checkout',(req,res)=>{
@@ -120,7 +132,30 @@ router.get('/update/:vehicle/details', function (req, res) {
 router.post('/update/:vehicle/details', function (req, res) {
 
     var id=req.params.vehicle;
+    var origin =req.body.origin;
+    var destination = req.body.destination;
+    var date = req.body.date;
+    var time = req.body.time;
     var status='Pending';
+
+    req.checkBody('origin','Origin must have a value').notEmpty();
+    req.checkBody('destination','Destination must have a value').notEmpty();
+    req.checkBody('date','Date must have a numerical value').isDecimal();
+    req.checkBody('time','Time must have a numerical value').isDecimal();
+
+    var errors = req.validationErrors();
+    if (errors) {
+        res.render('details', {
+            errors: errors,
+            user:null,
+            title: 'Error',
+            vehicle:id,
+            origin:origin,
+            destination:destination,
+            date:date,
+            time:time
+        });
+    } else {
     for(var i=0;i<req.user.bookings.length;++i)
     {
         if(req.user.bookings[i].title==id)
@@ -139,6 +174,7 @@ router.post('/update/:vehicle/details', function (req, res) {
             console.log(err);
         res.redirect('/book/checkout');
     });
+    }
 });
 
 router.get('/update/:vehicle', function (req, res) {

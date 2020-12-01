@@ -125,11 +125,6 @@ router.get('/edit-vehicle/:id',isAdmin,(req,res)=>{
 
 
 router.post('/edit-vehicle/:id',(req,res)=>{
-    
-    req.checkBody('title','Title must have a value').notEmpty();
-    req.checkBody('desc','Description must have a value').notEmpty();
-    //req.checkBody('price','Price must have a value').isDecimal();
-    req.checkBody('image','Image must have a value').notEmpty();
 
     var title=req.body.title;
     var slug = title.replace(/\s+/g, '-').toLowerCase();
@@ -138,6 +133,11 @@ router.post('/edit-vehicle/:id',(req,res)=>{
     var image = req.body.image;
     var category = req.body.category;
     var id = req.params.id;
+
+    req.checkBody('title','Title must have a value').notEmpty();
+    req.checkBody('desc','Description must have a value').notEmpty();
+    //req.checkBody('price','Price must have a value').isDecimal();
+    req.checkBody('image','Image must have a value').notEmpty();
 
     var errors = req.validationErrors();
 
