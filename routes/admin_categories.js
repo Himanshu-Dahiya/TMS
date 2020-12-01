@@ -113,7 +113,7 @@ router.post('/edit-category/:id',(req,res)=>{
                        req.app.locals.categories=categories;
                         })
                     .catch(err=>console.log(err));
-                    res.redirect('/admin/categories/edit-category/'+category.id);    
+                    res.redirect('/admin/categories');    
                 })         
                 }
             })

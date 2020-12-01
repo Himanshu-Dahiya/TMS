@@ -13,6 +13,7 @@
         <th>Date</th>
         <th>Time</th>
         <th>Quantity</th>
+        <th>Status</th>
         <th></th>
     </tr>
     
@@ -26,6 +27,7 @@
         <td><%= vehicle.date %></td>
         <td><%= vehicle.time %></td>
         <td><%= vehicle.qty %></td>
+        <td><%= vehicle.status %></td>
         <td>
             <a href="/book/update/<%= vehicle.title %>?action=add">+</a>&nbsp;
             <a href="/book/update/<%= vehicle.title %>?action=remove">-</a>&nbsp;

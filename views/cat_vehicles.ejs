@@ -3,12 +3,12 @@
 <div class="row products">
     
     <% vehicles.forEach(function(p){ %>
-            <div class="col-xs-12 col-md-4 p">
+            <div class="col-xs-12 col-md-6 p">
                 <a class="pa" href="/vehicles/<%= p.category %>/m/<%= p.slug %>">
                     <img class="pimage" src="<%= p.image %>" alt="">
                 </a>
                 <h3><%= p.title %></h3>
-                <a class="vd" href="/vehicles/<%= p.category %>/m/<%= p.slug %>">View Details</a>
+                <a class="vd" href="/vehicles/<%= p.category %>/m/<%= p.slug %>">View Details</a><br><br>
             </div>
         <% }); %>
     

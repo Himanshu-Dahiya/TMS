@@ -16,16 +16,16 @@ router.get('/',(req,res)=>{
     .catch(err=>console.log(err));
 });
 
-router.get('/m/:category',(req,res)=>{
+router.get('/:category',(req,res)=>{
 
     var categorySlug=req.params.category;
 
     Category.findOne({slug:categorySlug})
     .then(c=>{
         Vehicle.find({category:categorySlug})
-        .then(Vehicles=>{
+        .then(vehicles=>{
             res.render('cat_Vehicles',{
-                Vehicles:Vehicles,
+                vehicles:vehicles,
                 title:c.title
             })
         })

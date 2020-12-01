@@ -34,6 +34,7 @@ router.post('/add/:vehicle',(req, res)=> {
     var destination = req.body.destination;
     var date = req.body.date;
     var time = req.body.time;
+    var status = 'Pending'
 
     var errors = req.validationErrors();
     Vehicle.findOne({slug: slug}).then(p=>{
@@ -46,7 +47,8 @@ router.post('/add/:vehicle',(req, res)=> {
                 date:date,
                 time:time,
                 qty: 1,
-                image: p.image
+                image: p.image,
+                status: status
             });
             req.user.save();
         } else {
@@ -70,13 +72,14 @@ router.post('/add/:vehicle',(req, res)=> {
                     destination:destination,
                     date:date,
                     time:time,
-                    image: p.image
+                    image: p.image,
+                    status: status
                 });
             }
             req.user.save();
         }
 
-        res.redirect('back');
+        res.redirect('/book/checkout');
     })
     .catch(err=>console.log(err));
 
@@ -100,6 +103,7 @@ router.get('/update/:vehicle/details', function (req, res) {
             var destination=req.user.bookings[i].destination;
             var date=req.user.bookings[i].date;
             var time=req.user.bookings[i].time;
+            var status='Pending';
             res.render('edit_details',{
                 origin:origin,
                 destination:destination,
@@ -116,16 +120,16 @@ router.get('/update/:vehicle/details', function (req, res) {
 router.post('/update/:vehicle/details', function (req, res) {
 
     var id=req.params.vehicle;
+    var status='Pending';
     for(var i=0;i<req.user.bookings.length;++i)
     {
         if(req.user.bookings[i].title==id)
         {
-            console.log(req.body.origin);
             req.user.bookings[i].origin=req.body.origin;
-            console.log(req.user.bookings[i].origin);
             req.user.bookings[i].destination=req.body.destination;
             req.user.bookings[i].date=req.body.date;
             req.user.bookings[i].time=req.body.time;
+            req.user.bookings[i].status=status;
             req.user.markModified('bookings');
             break;
         }

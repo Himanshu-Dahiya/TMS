@@ -172,7 +172,7 @@ router.post('/edit-vehicle/:id',(req,res)=>{
                     if (err)
                         return console.log(err);
                     //req.flash('success', 'Page added!');
-                    res.redirect('/admin/vehicles/edit-vehicle/'+id);    
+                    res.redirect('/admin/vehicles');    
                 })         
                 }
             })

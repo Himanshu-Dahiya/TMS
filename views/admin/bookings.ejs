@@ -15,6 +15,7 @@
             <th>Date</th>
             <th>Time</th>
             <th>Quantity</th>
+            <th>Status</th>
             <th></th>
         </tr>
     </thead>
@@ -30,6 +31,9 @@
                 <td><%= booking.date %></td>
                 <td><%= booking.time %></td>
                 <td><%= booking.qty %></td>
+                <td><%= booking.status %></td>
+                <td><a href="/admin/bookings/confirm/<%= user.username %>/<%= user.bookings.indexOf(booking) %>">Confirm</a> / 
+                    <a href="/admin/bookings/decline/<%= user.username %>/<%= user.bookings.indexOf(booking) %>">Decline</a></td>
             </tr>
             <% }); %>
             <% }); %>

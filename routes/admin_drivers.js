@@ -162,7 +162,7 @@ router.post('/edit-driver/:id',(req,res)=>{
                     if (err)
                         return console.log(err);
                     //req.flash('success', 'Page added!');
-                    res.redirect('/admin/drivers/edit-driver/'+id);    
+                    res.redirect('/admin/drivers');    
                 })         
                 }
             })
